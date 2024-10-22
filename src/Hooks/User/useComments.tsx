@@ -1,81 +1,12 @@
-import { useEffect, useState, useRef } from 'react'
-import { useEssentials, getCookie, useToast } from '../../Functions/CommonFunctions'
-import { getPosts, LikeDislikeRemoveThunk } from '../../Store/UserStore/Post-Management/PostSlice'
-import { PostImage } from '../../Store/UserStore/Post-Management/Interfaces'
-import { Connections, User } from '../../Store/UserStore/Authentication/Interfaces'
-import { setUser } from '../../Store/UserStore/Authentication/AuthSlice'
-import { searchUsers } from '../../Store/UserStore/ProfileManagement/ProfileSlice'
-import { addCommentThunk, getCommentThunk } from '../../Store/UserStore/CommonManagements/CommonService'
-import { Comments } from '../../Store/UserStore/CommonManagements/interfaces'
-import { PayloadAction } from '@reduxjs/toolkit'
-import { useSocket } from '../../Socket'
-
-const useHooks = () => {
-    const { dispatch, navigate } = useEssentials()
-    const [skip, setSkip] = useState<number>(0)
-    const [post, setPost] = useState<PostImage[]>([])
-    const [noMore, setNoMore] = useState(false)
-    const [connections, setConnections] = useState<Connections | null>(null)
-    const [recommend, setRecommend] = useState<User[]>([])
-    useEffect(() => {
-        const token: string | undefined = getCookie("token")
-        if (token) {
-            dispatch(getPosts({ token, skip })).then((state: any) => {
-                console.log(state.payload.post)
-                if (!state.payload.user) return navigate("/login")
-                dispatch(setUser(state.payload.user))
-                if (state.payload.post.length === 0) {
-                    setNoMore(true)
-                }
-                setPost([...post, ...state.payload.post].filter((val, idx, arr) => arr.indexOf(val) === idx))
-                setConnections(state.payload.connections)
-                setRecommend(state.payload.recommendations || [])
-            })
-        } else navigate("/login")
-    }, [skip])
-    const skipping = () => {
-        setSkip(skip + 10)
-    }
-    return { post, connections, setConnections, setPost, recommend, skipping, noMore }
-}
-
-
-export const useFunctions = ({ base }: { base: string }) => {
-    const { dispatch, navigate } = useEssentials()
-    const [comments, setComments] = useState<Comments[]>([])
-    const likePost: Function = (postId: string) => {
-        const token = getCookie("token")
-        dispatch(LikeDislikeRemoveThunk({ postId, token, type: "like", base })).then((state: any) => {
-            if (state.payload.status === 202) return navigate("/login")
-            return true
-        })
-    }
-    const dislikePost: Function = (postId: string) => {
-        const token = getCookie("token")
-        dispatch(LikeDislikeRemoveThunk({ postId, token, type: "dislike", base })).then((state: any) => {
-            if (state.payload.status === 202) return navigate("/login")
-            return true
-        })
-    }
-    const removeReaction: Function = (postId: string) => {
-        const token = getCookie("token")
-        dispatch(LikeDislikeRemoveThunk({ postId, token, type: "remove", base })).then((state: any) => {
-            if (state.payload.status === 202) return navigate("/login")
-            return true
-        })
-    }
-    const videoRef = useRef<HTMLVideoElement | null>(null);
-
-    const handlePlayPause = (play: boolean) => {
-        if (play) {
-            videoRef?.current?.pause();
-        } else {
-            videoRef?.current?.play();
-        }
-    };
-
-    return { likePost, dislikePost, removeReaction, handlePlayPause, videoRef, comments, setComments }
-}
+import { useEffect, useState } from "react";
+import { useSocket } from "../useSocket";
+import { Comments } from "@/Store/UserStore/CommonManagements/interfaces";
+import { User } from "@/Store/UserStore/Authentication/Interfaces";
+import { useEssentials } from "../useEssentials";
+import { getCookie, useToast } from "@/Functions/Cookies";
+import { addCommentThunk, getCommentThunk } from "@/Store/UserStore/CommonManagements/CommonService";
+import { searchUsers } from "@/Store/UserStore/ProfileManagement/ProfileService";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 export const useComments = ({ PostId, live }: { PostId: string, live?: any }) => {
     const { dispatch, navigate } = useEssentials();
@@ -103,7 +34,7 @@ export const useComments = ({ PostId, live }: { PostId: string, live?: any }) =>
         return value.join(" ")
     };
 
-    const addComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const addComment = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const value = e.target.value;
         setText(value);
 
@@ -116,9 +47,9 @@ export const useComments = ({ PostId, live }: { PostId: string, live?: any }) =>
 
             if (token) {
                 if (searchValue.length > 0) {
-                    dispatch(searchUsers({ search: searchValue, token: token })).then((response: any) => {
-                        setUsers(response.payload.users);
-                    });
+                    const response = await searchUsers({ search: searchValue, token: token })
+                    console.log(response)
+                    setUsers(response.users)
                 } else {
                     setUsers(null);
                 }
@@ -176,6 +107,7 @@ export const useComments = ({ PostId, live }: { PostId: string, live?: any }) =>
             const token: string | undefined = getCookie("token")
             if (token) {
                 const response: PayloadAction<any> = await dispatch(addCommentThunk({ token, PostId, Comment: comment }))
+                console.log(response)
                 if (response.payload.status === 202) return navigate("/login")
                 if (response.payload.Comment) {
                     setText("")
@@ -192,9 +124,3 @@ export const useComments = ({ PostId, live }: { PostId: string, live?: any }) =>
 
     return { addComment, text, users, tags, setTags, addTag, upload, getTags, comments, setComments };
 };
-
-
-
-
-
-export default useHooks

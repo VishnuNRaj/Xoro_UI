@@ -25,10 +25,14 @@ export default {
 					DEFAULT: '#DC2626', // red-600
 					dark: '#B91C1C', // red-700
 				},
-				darken:'#121212',
+				darken: '#121212',
 				light: '#F9FAFC',
-                surface: '#F3F4F6',
-                background: '#021526',
+				surface: '#F3F4F6',
+				background: '#021526',
+				blue: {
+					light: "#bfdbf7",
+					dark: "#022b3a"
+				}
 			},
 			keyframes: {
 				slideInFromLeft: {
@@ -62,5 +66,5 @@ export default {
 			},
 		},
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [import("tailwindcss-animate"),import("@material-tailwind/react")],
 }

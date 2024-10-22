@@ -1,6 +1,6 @@
-import { login } from "@/Store/UserStore/Authentication/AuthSlice";
-import { useState } from "react";
-import { useEssentials } from "../useEssentials";
+import { AuthUser, login } from "@/Store/UserStore/Authentication/AuthSlice";
+import { useEffect, useState } from "react";
+import { useEssentials } from "../../useEssentials";
 import { getCookie, setCookie, useToast } from "@/Functions/Cookies";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -50,6 +50,17 @@ export default function useLogin() {
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
+
+    useEffect(() => {
+        const token = getCookie('token');
+        if (token) {
+            dispatch(AuthUser({ token })).then((state: any) => {
+                if (state.payload.user) {
+                    navigate('/');
+                }
+            });
+        }
+    }, [dispatch, navigate]);
 
     const formik = useFormik({
         initialValues: {

@@ -11,16 +11,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Google from "./Google";
-import useLogin from "@/Hooks/User/useLogin";
-import Preloader from "@/Assets/Preloader";
+import useLogin from "@/Hooks/User/Login/useLogin";
 
 export default function LoginComponent() {
     const { formik, showPassword, socialMedia, togglePasswordVisibility } = useLogin()
 
     return (
-        <div className="min-h-screen flex items-center flex-col justify-center">
-            {<Preloader gifSrc='/Logo.png' text="Loading ..." />}
-            <Card className="w-full bg-gray-100 dark:bg-background animate-slideInFromLeft max-w-md">
+        <div className="min-h-screen px-1 bg-gray-200 dark:bg-transparent relative flex items-center flex-col font-semibold justify-center">
+            <Card className="w-full bg-blue-light dark:bg-background dark:bg-opacity-70  animate-slideInFromLeft max-w-md">
                 <CardHeader className="space-y-3">
                     <div className="mx-auto text-center w-1/2">
                         <div className="w-full">
@@ -92,13 +90,13 @@ export default function LoginComponent() {
                         </div>
                     </CardContent>
                     <CardFooter className="flex flex-col space-y-4">
-                        <Button type="submit" className="w-full">
+                        <Button type="submit" className="w-full font-semibold hover:bg-primary-dark text-white">
                             Login
                         </Button>
                         <div className="text-sm text-center text-gray-500 dark:text-gray-400">
                             Don't have an account?{" "}
                             <Link
-                                to="/signup"
+                                to="/register"
                                 className="text-primary underline hover:text-primary-dark dark:text-primary-light dark:hover:text-primary"
                             >
                                 Sign up
@@ -107,7 +105,6 @@ export default function LoginComponent() {
                         <div className="w-full flex items-center justify-center ">
                             <Google socialMedia={socialMedia} />
                         </div>
-
                     </CardFooter>
                 </form>
             </Card>
