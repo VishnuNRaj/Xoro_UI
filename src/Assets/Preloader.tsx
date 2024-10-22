@@ -1,6 +1,4 @@
-"use client"
-
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 interface PreloaderProps {
     gifSrc?: string
@@ -12,18 +10,10 @@ interface PreloaderProps {
 export default function Preloader({
     gifSrc,
     text = "Loading...",
-    duration = 3000,
     size = 'md'
 }: PreloaderProps) {
-    const [loading, setLoading] = useState(true)
+    const [loading,] = useState(true)
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setLoading(false)
-        }, duration)
-
-        return () => clearTimeout(timer)
-    }, [duration])
 
     if (!loading) return null
 

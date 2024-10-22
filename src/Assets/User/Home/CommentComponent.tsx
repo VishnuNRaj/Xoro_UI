@@ -1,9 +1,9 @@
 import React, { SetStateAction, useEffect, useState } from 'react';
-import { Comments } from '../../Store/UserStore/CommonManagements/interfaces';
-import { useComments } from './Hooks';
-import { User } from '../../Store/UserStore/Authentication/Interfaces';
-import { useEssentials } from '../../Functions/CommonFunctions';
-import { Avatar } from '@material-tailwind/react';
+import { Comments } from '@/Store/UserStore/CommonManagements/interfaces';
+import { User } from '@/Store/UserStore/Authentication/Interfaces';
+import { useEssentials } from '@/Hooks/useEssentials';
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { useComments } from '@/Hooks/User/useComments';
 
 interface Props {
     setComments: React.Dispatch<SetStateAction<Comments[]>>;
@@ -59,11 +59,13 @@ const Comment: React.FC<{ comment: Comments }> = ({ comment }) => {
         >
             <div className='flex items-center'>
                 <div className='w-8 rounded-full h-8 bg-gray-600 flex-shrink-0'>
-                    <Avatar
-                        src={comment.user.Profile}
-                        onClick={() => navigate(`/profile/${comment.user.ProfileLink}`)}
-                        className='rounded-full cursor-pointer w-8 h-8 object-contain'
-                        alt="" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+                    <Avatar>
+                        <AvatarImage
+                            src={comment.user.Profile}
+                            onClick={() => navigate(`/profile/${comment.user.ProfileLink}`)}
+                            className='rounded-full cursor-pointer w-8 h-8 object-contain'
+                            alt="" />
+                    </Avatar>
                 </div>
                 <div className='bg-gray-900 p-1 min-w-[250px] px-2 ml-2 rounded-md relative'>
                     <p className='text-[10px] text-white font-semibold'>@{comment.user.Username}</p>
@@ -95,8 +97,8 @@ const CommentComponent: React.FC<Props> = ({ PostId, live }) => {
                     {users ? (
                         <div style={{ overflowX: "scroll", scrollbarWidth: "none", WebkitOverflowScrolling: "touch" }} className='grid grid-cols-1 p-2 rounded-md'>
                             {users.length > 0 ? users.map((usr) => (
-                                <div className='w-full h-12 p-2 gap-2 flex items-center justify-center bg-gray-400' key={usr._id}>
-                                    <div onClick={() => addTag(usr.Username, usr._id)} className='flex items-center justify-center w-full h-10 bg-violet-200'>
+                                <div className='w-full h-12 p-2 gap-2 flex items-center justify-center rounded-sm bg-blue-light' key={usr._id}>
+                                    <div onClick={() => addTag(usr.Username, usr._id)} className='flex items-center px-4 rounded-md hover:bg-primary-light justify-between w-full h-10 '>
                                         <div className='h-8 w-8'>
                                             <img crossOrigin="anonymous" src={usr.Profile} className='w-8 h-8 rounded-full' alt="" />
                                         </div>
@@ -141,7 +143,7 @@ const CommentComponent: React.FC<Props> = ({ PostId, live }) => {
                                 console.log(response)
                                 if (response) setComments([...comments, response]);
                             }
-                        }} value={text} onChange={addComment} rows={2} style={{ overflowY: "auto", scrollbarWidth: "none" }} className='resize-none p-3 font-semibold w-full h-12 border-2 border-gray-700 rounded-md'></textarea>
+                        }} value={text} onChange={addComment} rows={2} style={{ overflowY: "auto", scrollbarWidth: "none" }} className='resize-none p-3 text-background font-semibold w-full h-12 border-2 border-gray-700 rounded-md'></textarea>
                     </div>
                     <div className='w-12 h-12'>
                         <button onClick={async () => {
