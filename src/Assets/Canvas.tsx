@@ -53,7 +53,7 @@ const Offcanvas: React.FC = memo(() => {
                                 <div className="flex-1 overflow-auto py-4">
                                     <div className="space-y-2">
                                         {buttonsArray.map((button, index) => (
-                                            <SheetTrigger asChild className="duration-400 animate-popup" >
+                                            <SheetTrigger asChild key={index} className="duration-400 animate-popup" >
                                                 <Button key={index} variant="ghost" className="w-full hover:bg-blue-300 dark:hover:bg-blue-dark flex gap-4 dark:text-white justify-start" asChild>
                                                     <Link to={button.redirect}>
                                                         {button.icon}
