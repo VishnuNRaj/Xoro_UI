@@ -30,9 +30,9 @@ export default function VideosComponent() {
 
     return (
         <div className='w-full h-auto mt-4'>
-            <div className="w-full flex items-center justify-center">
+            <div className="w-full">
                 {Videos.length > 0 && (
-                    <div className='px-4 grid md:grid-cols-4 sm:grid-cols-1 gap-4'>
+                    <div className='px-4 grid md:grid-cols-4 w-full grid-cols-1 gap-4'>
                         {Videos.map((video) => (
                             <Suspense key={video.VideoLink} fallback={<VideoSkeleton />}>
                                 <VideoFile video={video} />
@@ -41,7 +41,7 @@ export default function VideosComponent() {
                     </div>
                 )}
                 {Videos.length < 1 && !loadingVideo && !loading && (
-                    <div onClick={() => navigate("/videos/upload")} className='h-[400px] animate-popup outline-2 mt-20 hover:bg-secondary text-secondary-foreground w-[400px] rounded-lg bg-background cursor-pointer transition-colors duration-200'>
+                    <div onClick={() => navigate("/videos/upload")} className='h-[400px] animate-popup outline-2 mt-20 hover:bg-secondary text-secondary w-[400px] rounded-lg bg-background cursor-pointer transition-colors duration-200'>
                         <div className='w-full mt-20 text-2xl font-semibold flex items-center justify-center'>
                             <h1>Upload Videos</h1>
                         </div>
@@ -55,7 +55,7 @@ export default function VideosComponent() {
                     </div>
                 )}
                 {hasMore && (
-                    <div ref={ref} className="w-full flex justify-center mt-4">
+                    <div ref={ref} className="w-full mt-4">
                         {loadingVideo && (
                             <div className='px-4 grid md:grid-cols-4 sm:grid-cols-1 gap-4'>
                                 {[...Array(4)].map((_, index) => (
