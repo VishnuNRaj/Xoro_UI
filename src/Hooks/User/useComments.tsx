@@ -34,7 +34,7 @@ export const useComments = ({ PostId, live }: { PostId: string, live?: any }) =>
         return value.join(" ")
     };
 
-    const addComment = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const addComment = async (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const value = e.target.value;
         setText(value);
 

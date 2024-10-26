@@ -1,14 +1,15 @@
 import { lazy, Suspense } from 'react'
 import useWindowDimensions from '@/Hooks/useWindowDimesions'
-import CommentComponent from './CommentComponent'
+import CommentComponent from '@/Assets/Components/Comments';
 import Preloader from '@/Assets/Preloader'
 import { useEssentials } from '@/Hooks/useEssentials'
 import usePostData from '@/Hooks/User/Home/usePostPage'
 const UserToolTip = lazy(() => import("@/Assets/Components/UserTooltip"))
 import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel"
 import { Button } from '@/components/ui/button'
 import { ThumbsUp, ThumbsDown, MessageCircle, Send, Bookmark, MoreVertical } from 'lucide-react'
+import Autoplay from 'embla-carousel-autoplay'
 
 export default function PostShow() {
     const { comments, setComments, dislike, like, count, post, dialog, handleDialogToggle, handleDislike, handleLike, handlePlayPause, play, setDialog, setPlay, videoRef } = usePostData()
@@ -22,12 +23,14 @@ export default function PostShow() {
                 <div className="animate-slideInFromLeft p-4 flex h-full items-center justify-center">
                     {dialog && width <= 768 && (
                         <Dialog open={dialog} onOpenChange={handleDialogToggle}>
-                            <DialogContent>
-                                <CommentComponent PostId={post._id} comments={comments} setComments={setComments} />
+                            <DialogContent className="flex items-center h-[400px] justify-center dark:border-white border-black rounded-lg bg-blue-light dark:bg-background">
+                                <div className="h-full w-full  flex-shrink-0 ">
+                                    <CommentComponent PostId={post._id} comments={comments} setComments={setComments} />
+                                </div>
                             </DialogContent>
                         </Dialog>
                     )}
-                    <div className="bg-blue-light dark:bg-background text-foreground dark:text-white border border-border dark:border-border-dark rounded-lg w-full flex-shrink-0 md:min-w-[400px] max-w-md">
+                    <div className="bg-blue-light dark:bg-background text-foreground dark:text-white border border-border dark:border-border-dark rounded-lg w-full flex-shrink-0 md:min-w-[400px] max-w-lg ">
                         <div className="flex items-center px-4 py-3 relative">
                             <img className="h-8 w-8 rounded-full object-cover" src={post.user.Profile} alt={post.user.Name} />
                             <div className="ml-3">
@@ -38,7 +41,12 @@ export default function PostShow() {
                                 <MoreVertical className="h-4 w-4" />
                             </Button>
                         </div>
-                        <Carousel className='relative'>
+                        <Carousel className='relative' plugins={[
+                    Autoplay({
+                        delay: 3000,
+                        active:!play
+                    }),
+                ]}>
                             <CarouselContent>
                                 {post.Images.map((image: any, imgIndex: number) => (
                                     <CarouselItem key={imgIndex}>
@@ -93,8 +101,6 @@ export default function PostShow() {
                                     </CarouselItem>
                                 ))}
                             </CarouselContent>
-                            <CarouselPrevious />
-                            <CarouselNext />
                         </Carousel>
                         <div className="flex items-center justify-between mx-4 mt-3 mb-2">
                             <div className="flex gap-5">
@@ -133,7 +139,7 @@ export default function PostShow() {
                         )}
                     </div>
                     {width > 768 && (
-                        <div className='w-[600px] rounded-lg bg-blue-light dark:bg-background ml-10 flex-shrink-0 border border-border dark:border-border-dark'>
+                        <div className='w-[600px] h-full dark:border-white border-black rounded-lg bg-blue-light dark:bg-background ml-10 flex-shrink-0'>
                             <CommentComponent PostId={post._id} comments={comments} setComments={setComments} />
                         </div>
                     )}

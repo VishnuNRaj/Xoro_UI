@@ -82,13 +82,13 @@ export default function ProfileComponent() {
                             </Button>
                             <Button variant="ghost" className="hover:bg-transparent">
                                 <div>
-                                    <p className="text-xl font-bold">{userData?.connections[0].Followers.length || "5.6K"}</p>
+                                    <p className="text-xl font-bold">{userData?.connections[0].Followers.length || "0"}</p>
                                     <p className="text-muted-foreground dark:text-muted-foreground-dark">Followers</p>
                                 </div>
                             </Button>
                             <Button variant="ghost" className="hover:bg-transparent">
                                 <div>
-                                    <p className="text-xl font-bold">{userData?.connections[0].Following.length || "789"}</p>
+                                    <p className="text-xl font-bold">{userData?.connections[0].Following.length || "0"}</p>
                                     <p className="text-muted-foreground dark:text-muted-foreground-dark">Following</p>
                                 </div>
                             </Button>

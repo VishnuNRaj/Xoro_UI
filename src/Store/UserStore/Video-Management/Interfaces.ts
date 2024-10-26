@@ -15,6 +15,7 @@ export interface Channel {
     videos:Video[];
     live:LiveInterface[];
     shorts:Shorts[];
+    ChannelLink:string;
 }
 export interface Reactions {
     PostId: string;
