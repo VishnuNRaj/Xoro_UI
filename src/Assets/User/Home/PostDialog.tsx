@@ -1,7 +1,7 @@
 import React, { SetStateAction, useState, Suspense, lazy } from "react"
 import { PostImage } from "@/Store/UserStore/Post-Management/Interfaces"
 import { useEssentials } from "@/Hooks/useEssentials"
-import CommentComponent from "./CommentComponent"
+import CommentComponent from '@/Assets/Components/Comments';
 import { Comments } from "@/Store/UserStore/CommonManagements/interfaces"
 import useReaction from "@/Hooks/User/useReactions"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
@@ -174,7 +174,7 @@ const PostDialog: React.FC<Props> = ({ post, open, setOpen, count, dislike, like
                         </div>
                         <div className="flex-shrink-0 p-2 w-auto">
                             <div className="h-full rounded-md bg-muted">
-                                <div className="h-full">
+                                <div className="h-full border border-border dark:border-white border-black max-h-full bg-blue-light dark:bg-background rounded-lg">
                                     <CommentComponent PostId={post._id} comments={comments} setComments={setComments} />
                                 </div>
                             </div>

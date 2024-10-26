@@ -33,12 +33,13 @@ export default function UserRoutes() {
           <Route path="/post/:id" Component={Post} />
           <Route path="/upload/post" Component={PostUpload} />
           <Route
-            path="/verify-account/:VerificationLink/:UserId"
+            path="/verify-account/:VerificationLink/:UserId" 
             Component={VerifyAccount}
           />
-          <Route path="/upload/video" Component={VideoUpload} />
-          <Route path="/videos" Component={Videos} />
+           
           <Route path="/videos/:VideoLink" Component={VideoPlayer} />
+                    <Route path="/videos" Component={Videos} />
+                    <Route path="/upload/video" Component={VideoUpload} />
         </Routes>
       </>
       {/* </ProtectedRoute> */}

@@ -8,7 +8,7 @@ export default function ImgComponent({ post }: { post: PostImage[] }) {
     const [hoverIndex, setHoverIndex] = useState<number | null>(null)
     
     if (!post || post.length === 0) {
-        return <div className="text-center font-semibold text-xl text-foreground dark:text-white">Upload Feeds</div>
+        return <div className="text-center font-bold text-lg dark:text-white">No Feeds Uploaded</div>
     }
 
     return (
