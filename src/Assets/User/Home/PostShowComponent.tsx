@@ -4,7 +4,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel"
 import { Button } from "@/components/ui/button"
 import PostDialog from './PostDialog'
-import CommentComponent from './CommentComponent'
+import CommentComponent from '@/Assets/Components/Comments';
 import usePost from '@/Hooks/User/Home/usePost'
 const UserToolTip = lazy(() => import("@/Assets/Components/UserTooltip"))
 import useWindowDimensions from '@/Hooks/useWindowDimesions'
@@ -43,13 +43,13 @@ export default function PostShowComponent({ postData }: PostShowComponentProps) 
             )}
             {dialog && width <= 768 && (
                 <Dialog open={dialog} onOpenChange={handleDialogToggle}>
-                    <DialogContent className='px-2 bg-blue-light dark:bg-background text-white'>
+                    <DialogContent className='px-2 border border-border dark:border-white border-black max-h-full bg-blue-light dark:bg-background rounded-lg text-white'>
                         <CommentComponent PostId={postData._id} comments={comments} setComments={setComments} />
                     </DialogContent>
                 </Dialog>
             )}
 
-            <div className="bg-blue-light dark:bg-background border border-border rounded-lg flex-shrink-0 lg:min-w-[420px] lg:max-w-lg">
+            <div style={{scrollbarWidth:"none"}} className="bg-blue-light dark:bg-background border border-border rounded-lg flex-shrink-0 lg:min-w-[420px] lg:max-w-lg">
                 <div className="flex items-center px-4 py-3 relative">
                     <img crossOrigin="anonymous" className="h-8 w-8 rounded-full object-cover" src={post.user?.Profile} alt={post.user?.Name} />
                     <div className="ml-3">

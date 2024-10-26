@@ -93,12 +93,12 @@ const CommentComponent: React.FC<Props> = ({ PostId, live }) => {
     return (
         <div className='p-2'>
             <div className='relative w-full'>
-                <div className='w-full bg-white rounded-md h-[380px]' style={{ overflowY: "auto", scrollbarWidth: "none" }}>
+                <div className='w-full bg-blue-200 dark:bg-blue-dark rounded-md h-[380px]' style={{ overflowY: "auto", scrollbarWidth: "none" }}>
                     {users ? (
                         <div style={{ overflowX: "scroll", scrollbarWidth: "none", WebkitOverflowScrolling: "touch" }} className='grid grid-cols-1 p-2 rounded-md'>
                             {users.length > 0 ? users.map((usr) => (
                                 <div className='w-full h-12 p-2 gap-2 flex items-center justify-center rounded-sm bg-blue-light' key={usr._id}>
-                                    <div onClick={() => addTag(usr.Username, usr._id)} className='flex items-center px-4 rounded-md hover:bg-primary-light justify-between w-full h-10 '>
+                                    <div onClick={() => addTag(usr.Username, usr._id)} className='flex items-center px-4 rounded-md hover:bg-blue-300  justify-between w-full h-10 '>
                                         <div className='h-8 w-8'>
                                             <img crossOrigin="anonymous" src={usr.Profile} className='w-8 h-8 rounded-full' alt="" />
                                         </div>
@@ -143,7 +143,7 @@ const CommentComponent: React.FC<Props> = ({ PostId, live }) => {
                                 console.log(response)
                                 if (response) setComments([...comments, response]);
                             }
-                        }} value={text} onChange={addComment} rows={2} style={{ overflowY: "auto", scrollbarWidth: "none" }} className='resize-none p-3 text-background font-semibold w-full h-12 border-2 border-gray-700 rounded-md'></textarea>
+                        }} value={text} onChange={addComment} rows={2} style={{ overflowY: "auto", scrollbarWidth: "none" }} className='resize-none p-3 text-background bg-blue-light dark:bg-background font-semibold w-full h-12 border-2 border-gray-700 rounded-md'></textarea>
                     </div>
                     <div className='w-12 h-12'>
                         <button onClick={async () => {
