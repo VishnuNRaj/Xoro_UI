@@ -19,6 +19,7 @@ function PostWrapper({ post, index }: { post: PostImage; index: number }) {
     target: ref,
     offset: ["start end", "end start"]
   });
+  //@ts-ignore
   const y = useParallax(scrollYProgress, 50);
 
   return (
@@ -31,12 +32,6 @@ function PostWrapper({ post, index }: { post: PostImage; index: number }) {
       style={{scrollbarWidth:"none"}}
     >
       <PostShowComponent postData={post} />
-      <motion.div
-        style={{ y }}
-        className="absolute left-4 top-4 text-4xl font-bold text-primary-foreground opacity-10 pointer-events-none"
-      >
-        #{index + 1}
-      </motion.div>
     </motion.div>
   );
 }
@@ -61,7 +56,7 @@ export default function HomeComponent() {
     }, []);
 
     return (
-        <div style={{scrollbarWidth:"none"}} className="h-screen flex flex-col">
+        <div style={{scrollbarWidth:"none"}} className="h-screen bg-gray-200 dark:bg-darken flex flex-col">
             {loading && <Preloader />}
             {post.length === 0 && <Preloader />}
             <div className="flex-grow overflow-y-auto" style={{scrollbarWidth:"none"}} ref={scrollRef}>

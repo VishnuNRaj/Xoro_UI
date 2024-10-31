@@ -14,7 +14,7 @@ import Autoplay from 'embla-carousel-autoplay'
 export default function PostShow() {
     const { comments, setComments, dislike, like, count, post, dialog, handleDialogToggle, handleDislike, handleLike, handlePlayPause, play, setDialog, setPlay, videoRef } = usePostData()
     const { width } = useWindowDimensions()
-    const { auth, Post } = useEssentials()
+    const { auth, Post,navigate } = useEssentials()
 
     return (
         <div className='grid grid-cols-1 items-center justify-center space-y-8 w-full h-auto'>
@@ -32,7 +32,7 @@ export default function PostShow() {
                     )}
                     <div className="bg-blue-light dark:bg-background text-foreground dark:text-white border border-border dark:border-border-dark rounded-lg w-full flex-shrink-0 md:min-w-[400px] max-w-lg ">
                         <div className="flex items-center px-4 py-3 relative">
-                            <img className="h-8 w-8 rounded-full object-cover" src={post.user.Profile} alt={post.user.Name} />
+                            <img onClick={()=>navigate(`/profile/${post.user?.ProfileLink}`)} className="h-8 w-8 rounded-full object-cover" src={post.user.Profile} alt={post.user.Name} />
                             <div className="ml-3">
                                 <span className="text-sm font-semibold antialiased block leading-tight">{post.user.Name}</span>
                                 <span className="text-muted-foreground dark:text-muted-foreground-dark text-xs block">{post.user.Username}</span>

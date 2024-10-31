@@ -36,8 +36,8 @@ export default function ProfileComponent() {
                             )}
                         </div>
                         <div className="mt-4 sm:mt-0 sm:ml-4 text-center sm:text-left flex-grow">
-                            <h1 className="text-2xl font-bold text-foreground dark:text-foreground-dark">{user?.Name || ""}</h1>
-                            <p className="text-primary dark:text-primary-dark">@{user?.Username || ""}</p>
+                            <h1 className="text-2xl font-bold text-foreground dark:text-foreground-dark">{userData?.Name || ""}</h1>
+                            <p className="text-primary dark:text-primary-dark">@{userData?.Username || ""}</p>
                         </div>
                         <div className="mt-4 sm:mt-0 flex gap-2 text-white">
                             {userData && user && userData?._id !== user?._id && (
@@ -55,7 +55,7 @@ export default function ProfileComponent() {
                         </div>
                     </div>
                     <div className="mt-6 flex items-center justify-center">
-                        {user?.Description.length === 0 ? (
+                        {userData?.Description.length === 0 ? (
                             <>
                                 <Button variant={"default"} className='hover:bg-primary-dark'> <Plus />No Descriptions</Button>
                             </>

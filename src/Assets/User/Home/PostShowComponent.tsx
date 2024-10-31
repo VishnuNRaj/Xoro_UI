@@ -21,7 +21,7 @@ export default function PostShowComponent({ postData }: PostShowComponentProps) 
         setDialog, videoRef, handlePlayPause, play, post, setPost } = usePost(postData)
 
     const { width } = useWindowDimensions()
-    const { auth } = useEssentials()
+    const { auth,navigate } = useEssentials()
 
     return (
         <div className="animate-slideInFromLeft p-4">
@@ -49,9 +49,9 @@ export default function PostShowComponent({ postData }: PostShowComponentProps) 
                 </Dialog>
             )}
 
-            <div style={{scrollbarWidth:"none"}} className="bg-blue-light dark:bg-background border border-border rounded-lg flex-shrink-0 lg:min-w-[420px] lg:max-w-lg">
+            <div style={{scrollbarWidth:"none"}} className="bg-blue-light dark:bg-background border border-border rounded-lg flex-shrink-0 lg:min-w-[420px] lg:max-w-2xl">
                 <div className="flex items-center px-4 py-3 relative">
-                    <img crossOrigin="anonymous" className="h-8 w-8 rounded-full object-cover" src={post.user?.Profile} alt={post.user?.Name} />
+                    <img onClick={()=>navigate(`/profile/${post.user?.ProfileLink}`)} className="h-8 w-8 rounded-full object-cover" src={post.user?.Profile} alt={post.user?.Name} />
                     <div className="ml-3">
                         <span className="text-sm font-semibold antialiased block leading-tight text-black dark:text-white">{post.user?.Name}</span>
                         <span className="text-muted-foreground text-xs block dark:text-gray-300">{post.user?.Username}</span>
