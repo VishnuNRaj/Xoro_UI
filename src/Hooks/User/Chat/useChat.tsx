@@ -3,7 +3,7 @@ import { getCookie } from '@/Functions/Cookies'
 import { useEssentials } from '@/Hooks/useEssentials'
 import { useSocket } from '@/Hooks/useSocket'
 import { User } from '@/Store/UserStore/Authentication/Interfaces'
-import { getChat } from '@/Store/UserStore/Chat-Management/ChatService'
+import { getChat } from '@/Store/UserStore/Chat-Management/ChatSlice'
 import { setChat } from '@/Store/UserStore/Chat-Management/ChatSlice'
 import { Chat } from '@/Store/UserStore/Chat-Management/interfaces'
 
@@ -36,6 +36,7 @@ export function useChat() {
     const token = getCookie("token")
     if (chat?.chat?.RoomId && token) {
       dispatch(getChat({ RoomId: chat.chat.RoomId, token })).then((data: any) => {
+        console.log(data)
         if (data.payload.status === 202) {
           return navigate("/login")
         }
