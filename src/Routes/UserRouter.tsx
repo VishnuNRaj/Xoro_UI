@@ -11,7 +11,8 @@ import VerifyAccount from "@/Pages/User/VerifyAccount";
 import VideoUpload from "@/Pages/User/VideoUpload";
 import Videos from "@/Pages/User/Videos";
 import VideoPlayer from "@/Pages/User/VideoPlayer";
-// import Shorts from "@/Pages/User/Shorts";
+import Shorts from "@/Pages/User/Shorts";
+import Stream from "@/Pages/User/Stream";
 // import ProtectedRoute from "@/Context/Protected";
 // import Icon from "@/Assets/User/Chat/Icon";
 
@@ -42,8 +43,10 @@ export default function UserRoutes() {
           <Route path="/videos" Component={Videos} />
           <Route path="/upload/video" Component={VideoUpload} />
 
-          {/* <Route path="/shorts" Component={Shorts} />
-          <Route path="/shorts/:VideoLink" Component={Shorts} /> */}
+          <Route path="/shorts" Component={Shorts} />
+          <Route path="/shorts/:VideoLink" Component={Shorts} />
+
+          <Route path="/stream" Component={Stream} />
         </Routes>
       </>
       {/* </ProtectedRoute> */}
