@@ -11,7 +11,7 @@ export default function StreamComponent() {
     const { width } = useWindowDimensions();
 
     return (
-        <div className="bg-blue-light dark:bg-background dark:text-white">
+        <div className="h-full bg-transparent font-semibold dark:text-white">
             <div className="w-full md:h-[75vh] flex flex-col md:items-center rounded-md aspect-video p-2 justify-center">
                 {loading && <Preloader />}
                 <Toaster richColors position="top-right" />
@@ -19,7 +19,7 @@ export default function StreamComponent() {
                     <video
                         ref={videoRef}
                         autoPlay
-                        className={`${width < 968 ? 'w-full h-full' : 'aspect-video object-cover w-[60%]'} rounded-md shadow-md shadow-gray-700 dark:shadow-gray-500 md:border-0 border-2`}
+                        className={`${width < 968 ? 'w-full h-full' : 'aspect-video object-cover w-[60%]'} mt-2 rounded-md shadow-md shadow-gray-700 dark:shadow-gray-500 md:border-0 border-2`}
                     />
                 ) : (
                     <div className="flex items-center justify-center gap-4">
@@ -46,7 +46,7 @@ export default function StreamComponent() {
                     </div>
                 )}
             </div>
-            <div className='w-full flex items-center justify-center h-[40px]'>
+            <div className='w-full flex items-center justify-center mt-2 h-[40px]'>
                 {started ? (
                     <Button 
                         onClick={async () => {

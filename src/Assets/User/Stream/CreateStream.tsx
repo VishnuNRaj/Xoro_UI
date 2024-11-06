@@ -22,14 +22,14 @@ export default function CreateStream({ live, setLive, setState, state }:CreateSt
 
   return (
     <Dialog open={live.Thumbnail && !state ? false : true} onOpenChange={() => setState(false)}>
-      <DialogContent className="sm:max-w-[425px] bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+      <DialogContent style={{scrollbarWidth:"none"}} className="sm:max-w-[425px] max-h-[600px] overflow-y-scroll bg-blue-light dark:bg-background dark:text-white">
         <DialogHeader>
           <DialogTitle className="text-center text-2xl font-serif">Create Live</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <div 
             onClick={() => inputRef.current?.click()} 
-            className="w-full h-[220px] rounded-lg mt-2 hover:bg-gray-100 dark:hover:bg-gray-700 border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center cursor-pointer"
+            className="w-full h-[220px] rounded-lg mt-2 hover:bg-blue-300 dark:hover:bg-blue-dark border-2 border-dashed border-darken dark:border-white flex items-center justify-center cursor-pointer"
           >
             {!data.Thumbnail ? (
               <div className="text-center">
