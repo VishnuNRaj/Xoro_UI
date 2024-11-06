@@ -11,7 +11,7 @@ export default function StreamComponent() {
     const { width } = useWindowDimensions();
 
     return (
-        <div className="h-full bg-transparent font-semibold dark:text-white">
+        <div className="h-full dark:bg-transparent bg-gray-200 font-semibold dark:text-white">
             <div className="w-full md:h-[75vh] flex flex-col md:items-center rounded-md aspect-video p-2 justify-center">
                 {loading && <Preloader />}
                 <Toaster richColors position="top-right" />
