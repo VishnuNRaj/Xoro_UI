@@ -137,7 +137,7 @@ export default function CommentComponent ({ PostId, live }:Props) {
                         placeholder="Add a comment..."
                         className="flex-grow dark:border-white border-black"
                     />
-                    <Button onClick={handleSubmit} size="icon">
+                    <Button onClick={handleSubmit} className='text-white' size="icon">
                         <Send className="h-4 w-4" />
                     </Button>
                 </div>

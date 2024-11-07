@@ -17,9 +17,9 @@ export default function useStream() {
     const mediaRecorderRef = useRef<MediaRecorder | null>(null);
     const [loading, setLoading] = useState(false)
     useEffect(() => {
+        setLoading(true)
         const token = getCookie('token');
         if (token) {
-            setLoading(true)
             dispatch(AuthUser({ token })).then((state: any) => {
                 if (!state.payload.user) {
                     navigate('/login');

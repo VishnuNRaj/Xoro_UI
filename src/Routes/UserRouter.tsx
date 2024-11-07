@@ -13,6 +13,8 @@ import Videos from "@/Pages/User/Videos";
 import VideoPlayer from "@/Pages/User/VideoPlayer";
 import Shorts from "@/Pages/User/Shorts";
 import Stream from "@/Pages/User/Stream";
+import LiveVideos from "@/Pages/User/LiveVideos";
+import LivePage from "@/Pages/User/LivePage";
 // import ProtectedRoute from "@/Context/Protected";
 // import Icon from "@/Assets/User/Chat/Icon";
 
@@ -47,6 +49,8 @@ export default function UserRoutes() {
           <Route path="/shorts/:VideoLink" Component={Shorts} />
 
           <Route path="/stream" Component={Stream} />
+          <Route path="/live" Component={LiveVideos} />
+          <Route path="/live/:key" Component={LivePage} />
         </Routes>
       </>
       {/* </ProtectedRoute> */}

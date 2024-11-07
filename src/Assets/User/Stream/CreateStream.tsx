@@ -29,7 +29,7 @@ export default function CreateStream({ live, setLive, setState, state }:CreateSt
         <div className="space-y-4">
           <div 
             onClick={() => inputRef.current?.click()} 
-            className="w-full h-[220px] rounded-lg mt-2 hover:bg-blue-300 dark:hover:bg-blue-dark border-2 border-dashed border-darken dark:border-white flex items-center justify-center cursor-pointer"
+            className="w-full h-[220px] rounded-lg mt-2 hover:bg-blue-100 dark:hover:bg-blue-dark border-2 border-dashed border-darken dark:border-white flex items-center justify-center cursor-pointer"
           >
             {!data.Thumbnail ? (
               <div className="text-center">
