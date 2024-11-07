@@ -112,6 +112,7 @@ export default function LivePageComponent(){
               comments={comments}
               setComments={setComments}
               PostId={live._id}
+              live={true}
             />
           )}
         </div>

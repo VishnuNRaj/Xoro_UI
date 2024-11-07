@@ -13,7 +13,7 @@ interface Props {
     setComments: React.Dispatch<SetStateAction<Comments[]>>;
     comments: Comments[];
     PostId: string;
-    live?: any
+    live?: boolean;
 }
 
 export function CommentList ({ tags, value }:{ tags: User[]; value: string[] }) {

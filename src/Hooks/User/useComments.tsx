@@ -8,7 +8,7 @@ import { addCommentThunk, getCommentThunk } from "@/Store/UserStore/CommonManage
 import { searchUsers } from "@/Store/UserStore/ProfileManagement/ProfileService";
 import { PayloadAction } from "@reduxjs/toolkit";
 
-export const useComments = ({ PostId, live }: { PostId: string, live?: any }) => {
+export const useComments = ({ PostId, live }: { PostId: string, live?: boolean }) => {
     const { dispatch, navigate } = useEssentials();
     const [text, setText] = useState("");
     const [comments, setComments] = useState<Comments[]>([])
