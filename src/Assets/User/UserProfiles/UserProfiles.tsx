@@ -1,11 +1,27 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Lock, Image, Plus, MessageCircle, UserPlus, Send } from "lucide-react";
+import {
+  Lock,
+  Image,
+  Plus,
+  MessageCircle,
+  UserPlus,
+  Send,
+  Facebook,
+  Twitter,
+} from "lucide-react";
 import Preloader from "@/Assets/Preloader";
 import ImgComponent from "./PostMap";
 import useUserProfiles from "@/Hooks/User/Profile/useUserProfiles";
 import useConnections from "@/Hooks/User/Profile/useConnections";
-
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { DialogTrigger } from "@radix-ui/react-dialog";
 export default function ProfileComponent() {
   const {
     user,
@@ -18,6 +34,10 @@ export default function ProfileComponent() {
     Connection,
     FollowUser,
     UnfollowUser,
+    handleShare,
+    getShareUrl,
+    isShareOpen,
+    setIsShareOpen,
   } = useUserProfiles();
   const {} = useConnections();
 
@@ -34,13 +54,49 @@ export default function ProfileComponent() {
             src={userData?.Banner || "/Loading.png"}
           />
           <div className="absolute top-4 right-4 flex space-x-2">
-            <Button
-              variant="default"
-              size="icon"
-              className="w-10 h-10 rounded-md hover:bg-primary-dark text-surface font-semibold"
-            >
-              <Send className="h-4 w-4" />
-            </Button>
+            <Dialog open={isShareOpen} onOpenChange={setIsShareOpen}>
+              <DialogTrigger asChild>
+                <Button
+                  variant="default"
+                  size="icon"
+                  className="w-10 h-10 rounded-md hover:bg-primary-dark text-surface font-semibold"
+                >
+                  <Send className="h-4 w-4" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md bg-blue-light dark:bg-background dark:text-white">
+                <DialogHeader>
+                  <DialogTitle>Share this post</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="flex items-center space-x-2">
+                    <Input readOnly value={getShareUrl()} className="flex-1" />
+                    <Button
+                      onClick={() => handleShare()}
+                      className="text-white"
+                    >
+                      Copy
+                    </Button>
+                  </div>
+                  <div className="flex justify-center space-x-4 text-white">
+                    <Button
+                      variant="secondary"
+                      size="icon"
+                      onClick={() => handleShare("facebook")}
+                    >
+                      <Facebook className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="icon"
+                      onClick={() => handleShare("twitter")}
+                    >
+                      <Twitter className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
         <div className="relative px-4 sm:px-6 pb-4">

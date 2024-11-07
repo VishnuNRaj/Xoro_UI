@@ -59,7 +59,7 @@ export default function useProfileData() {
   const getShareUrl = () => {
     if (user) {
       const baseUrl = window.location.origin;
-      return `${baseUrl}/live/${user._id}`;
+      return `${baseUrl}/profile/${user.ProfileLink}`;
     }
     return "";
   };
@@ -78,7 +78,7 @@ export default function useProfileData() {
         case "twitter":
           shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
             videoUrl
-          )}&text=${encodeURIComponent(user?._id)}`;
+          )}&text=${encodeURIComponent(user?.Name)}`;
           break;
         default:
           navigator.clipboard.writeText(videoUrl);
