@@ -31,6 +31,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import AccountSettings from "./AccountSettings";
 export default function ProfileComponent() {
   const {
     user,
@@ -41,7 +42,7 @@ export default function ProfileComponent() {
     type,
     Profile,
     banner,
-    // open,
+    open,
     channel,
     state,
     bannerRef,
@@ -69,9 +70,7 @@ export default function ProfileComponent() {
     <div
       className={`min-h-screen max-w-screen-lg mx-auto w-full transition-colors duration-300`}
     >
-      {/* />}
-            {open && <AccountSettings open={open} setOpen={setOpen} />}
-             */}
+      {open && <AccountSettings open={open} setOpen={setOpen} />}
       <Dialog open={isShareOpen} onOpenChange={setIsShareOpen}>
         <DialogContent className="sm:max-w-md bg-blue-light dark:bg-background dark:text-white">
           <DialogHeader>
