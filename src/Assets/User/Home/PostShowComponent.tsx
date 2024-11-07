@@ -247,7 +247,7 @@ export default function PostShowComponent({
             </Button>
             <Dialog open={isShareOpen} onOpenChange={setIsShareOpen}>
               <DialogTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button variant="ghost" className="dark:text-white" size="icon">
                   <Send className="h-5 w-5" />
                 </Button>
               </DialogTrigger>

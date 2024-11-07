@@ -60,7 +60,7 @@ export default function PostShow() {
       {Post.loadingPost && <Preloader />}
       {post && (
         <div className="animate-slideInFromLeft p-4 flex flex-col lg:flex-row h-full items-start justify-center space-y-8 lg:space-y-0 lg:space-x-8">
-          <div className="bg-blue-light dark:bg-background text-foreground dark:text-white border border-border dark:border-border-dark rounded-lg w-full flex-shrink-0 max-w-lg">
+          <div className="bg-blue-light dark:bg-background text-foreground dark:text-white border border-border dark:border-border-dark rounded-lg w-full flex-shrink-0 max-w-xl lg:max-w-lg">
             <div className="flex items-center px-4 py-3 relative">
               <img
                 onClick={() => navigate(`/profile/${post.user?.ProfileLink}`)}
@@ -184,7 +184,7 @@ export default function PostShow() {
                 </Button>
                 <Dialog open={isShareOpen} onOpenChange={setIsShareOpen}>
                   <DialogTrigger asChild>
-                    <Button variant="ghost" size="icon">
+                    <Button variant="ghost" className="dark:text-white" size="icon">
                       <Send className="h-5 w-5" />
                     </Button>
                   </DialogTrigger>
@@ -263,7 +263,7 @@ export default function PostShow() {
               </div>
             )}
           </div>
-          <div className="w-full lg:w-[600px] h-full dark:border-white border-black rounded-lg bg-blue-light dark:bg-background flex-shrink-0">
+          <div className="w-full lg:w-[600px] max-h-[600px] lg:max-h-max lg:h-full dark:border-white border-black rounded-lg bg-blue-light dark:bg-background flex-shrink-0">
             <CommentComponent
               PostId={post._id}
               comments={comments}

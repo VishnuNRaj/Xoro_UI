@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   MessageCircle,
@@ -22,7 +21,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { toast } from "sonner";
 import useLikeDislikeLive from "@/Hooks/User/Live/useLikeDislikeLive";
 import { LiveInterface } from "@/Store/UserStore/CommonManagements/interfaces";
 
@@ -41,39 +39,17 @@ export default function LikeDislikeLive({
   comment,
   width,
 }: LikeDislikeVideoProps) {
-  const { count, like, dislike, handleLike, handleDislike } =
-    useLikeDislikeLive(post, comment);
-  const [isShareOpen, setIsShareOpen] = useState(false);
-  const getShareUrl = () => {
-    const baseUrl = window.location.origin;
-    return `${baseUrl}/live/${post.Key}`;
-  };
-
-  const handleShare = (platform?: string) => {
-    const videoUrl = getShareUrl();
-    let shareUrl = videoUrl;
-
-    switch (platform) {
-      case "facebook":
-        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-          videoUrl
-        )}`;
-        break;
-      case "twitter":
-        shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-          videoUrl
-        )}&text=${encodeURIComponent(post.Caption)}`;
-        break;
-      default:
-        navigator.clipboard.writeText(videoUrl);
-        toast.success("Copied to Clipboard");
-        return;
-    }
-
-    if (platform) {
-      window.open(shareUrl, "_blank");
-    }
-  };
+  const {
+    count,
+    like,
+    dislike,
+    handleLike,
+    handleDislike,
+    getShareUrl,
+    isShareOpen,
+    setIsShareOpen,
+    handleShare,
+  } = useLikeDislikeLive(post, comment);
 
   return (
     <div className="flex flex-wrap items-center justify-start gap-2 mt-2 sm:mt-0 sm:justify-end">

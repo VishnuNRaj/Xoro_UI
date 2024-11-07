@@ -3,6 +3,7 @@ import { useEssentials } from "@/Hooks/useEssentials";
 import useReaction from "../useReactions";
 import { useSocket } from "@/Hooks/useSocket";
 import { LiveInterface } from "@/Store/UserStore/CommonManagements/interfaces";
+import { toast } from "sonner";
 
 export default function useLikeDislikeLive(post: LiveInterface, comment: number) {
   const { dislikePost, likePost, removeReaction } = useReaction({
@@ -73,5 +74,37 @@ export default function useLikeDislikeLive(post: LiveInterface, comment: number)
     setDisLike((prev) => !prev);
   }, [like, dislike, post._id, dislikePost, removeReaction]);
 
-  return { count, like, dislike, handleLike, handleDislike };
+  const [isShareOpen, setIsShareOpen] = useState(false);
+  const getShareUrl = () => {
+    const baseUrl = window.location.origin;
+    return `${baseUrl}/live/${post.Key}`;
+  };
+
+  const handleShare = (platform?: string) => {
+    const videoUrl = getShareUrl();
+    let shareUrl = videoUrl;
+
+    switch (platform) {
+      case "facebook":
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          videoUrl
+        )}`;
+        break;
+      case "twitter":
+        shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+          videoUrl
+        )}&text=${encodeURIComponent(post.Caption)}`;
+        break;
+      default:
+        navigator.clipboard.writeText(videoUrl);
+        toast.success("Copied to Clipboard");
+        return;
+    }
+
+    if (platform) {
+      window.open(shareUrl, "_blank");
+    }
+  };
+
+  return { count, like, dislike, handleLike, handleDislike,isShareOpen,setIsShareOpen,handleShare,getShareUrl };
 }

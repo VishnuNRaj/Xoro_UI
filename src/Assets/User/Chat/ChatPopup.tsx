@@ -27,7 +27,7 @@ export default function ChatPopup({
   }
 
   return (
-    <div className="fixed bottom-20 right-4 z-50 top-20 w-[360px] rounded-lg">
+    <div className="fixed bottom-20 right-4 z-50 top-20 bg-blue-light dark:bg-background w-[360px] border-gray-200 dark:border-gray-700 rounded-lg">
       <div className="min-h-[400px] max-h-screen h-full overflow-hidden mb-2">
         {!chat.chat ? (
           <ChatWindow close={closeChat} />

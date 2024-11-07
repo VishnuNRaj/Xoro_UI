@@ -45,7 +45,15 @@ export default function ChatWindow({ close }: ChatWindowProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => setState(false)}
+                onClick={() => {
+                  setState(false);
+                  setGroup(null);
+                  setForm({
+                    Profile:
+                      "https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-group-icon-png-image_1796653.jpg",
+                    GroupName: "",
+                  });
+                }}
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -93,7 +101,7 @@ export default function ChatWindow({ close }: ChatWindowProps) {
                   className="flex items-center px-1 rounded-md shadow-lg dark:hover:bg-blue-dark justify-between h-[70px] hover:bg-blue-300"
                 >
                   <div className="flex items-center justify-center gap-5">
-                  {group && (
+                    {group && (
                       <Checkbox
                         id={`user-${user._id}`}
                         checked={group.includes(user._id)}
@@ -101,11 +109,11 @@ export default function ChatWindow({ close }: ChatWindowProps) {
                       />
                     )}
                     <Avatar>
-                    <AvatarImage src={user.Profile} />
-                    <AvatarFallback>{user.Name[0]}</AvatarFallback>
-                  </Avatar>
+                      <AvatarImage src={user.Profile} />
+                      <AvatarFallback>{user.Name[0]}</AvatarFallback>
+                    </Avatar>
                   </div>
-                  
+
                   <div className="flex flex-col items-center justify-center">
                     <p className="font-medium text-ellipsis">{user.Name}</p>
                     <p className="text-sm dark:text-white">@{user.Username}</p>

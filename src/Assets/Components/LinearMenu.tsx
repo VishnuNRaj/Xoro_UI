@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bell, MessageCircle, LogOut, Menu } from "lucide-react";
-// import NotificationsPopup from "./NotificationsPopup"
-import ChatPopup from "@/Assets/User/Chat/ChatPopup"
+import ChatPopup from "@/Assets/User/Chat/ChatPopup";
+import Notifications from "@/Assets/User/Notification/Notifications";
+import { removeCookie } from "@/Functions/Cookies";
+import { resetState } from "@/Store/UserStore/Authentication/AuthSlice";
+import { useEssentials } from "@/Hooks/useEssentials";
 
 const menuItems = [
   {
@@ -30,7 +33,12 @@ export default function LinearMenu() {
   const [activePopup, setActivePopup] = useState<
     "notifications" | "chat" | null
   >(null);
-
+  const { dispatch, navigate } = useEssentials();
+  const logout = () => {
+    removeCookie("token");
+    dispatch(resetState());
+    navigate("/login");
+  };
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const handleItemClick = (label: string) => {
@@ -39,7 +47,7 @@ export default function LinearMenu() {
     } else if (label === "Chat") {
       setActivePopup("chat");
     } else if (label === "Logout") {
-      console.log("Logging out...");
+      logout()
     }
     setIsOpen(false);
   };
@@ -88,8 +96,7 @@ export default function LinearMenu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
           >
-            {/* <NotificationsPopup onClose={() => setActivePopup(null)} />
-             */}
+            <Notifications setOpen={setActivePopup} />
           </motion.div>
         )}
         {activePopup === "chat" && (
@@ -98,7 +105,10 @@ export default function LinearMenu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
           >
-            <ChatPopup chatWindow={activePopup === "chat"} setChatWindow={setActivePopup} />
+            <ChatPopup
+              chatWindow={activePopup === "chat"}
+              setChatWindow={setActivePopup}
+            />
           </motion.div>
         )}
       </AnimatePresence>
