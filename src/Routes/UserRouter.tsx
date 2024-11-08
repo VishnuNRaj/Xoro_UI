@@ -15,12 +15,12 @@ import Shorts from "@/Pages/User/Shorts";
 import Stream from "@/Pages/User/Stream";
 import LiveVideos from "@/Pages/User/LiveVideos";
 import LivePage from "@/Pages/User/LivePage";
-// import ProtectedRoute from "@/Context/Protected";
-// import Icon from "@/Assets/User/Chat/Icon";
+import Messages from "@/Assets/Components/Messages";
 
 export default function UserRoutes() {
   return (
     <>
+      <Messages />
       <div className="w-full mb-2 h-[70px]">
         <Offcanvas />
       </div>
