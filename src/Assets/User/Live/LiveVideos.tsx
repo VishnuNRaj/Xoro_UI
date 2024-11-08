@@ -23,7 +23,7 @@ export default function LiveVideosComponent() {
   const { navigate } = useEssentials();
 
   return (
-    <div className="w-full p-4 bg-gray-200 h-full dark:bg-transparent dark:text-white">
+    <div className="w-full p-4 h-full bg-transparent dark:text-white">
       <div className={`w-full ${width > 450 ? "flex" : ""} justify-between`}>
         <div
           className={`flex ${

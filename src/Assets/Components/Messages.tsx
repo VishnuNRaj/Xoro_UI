@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import { Chat } from "@/Store/UserStore/Chat-Management/interfaces";
 import { User } from "@/Store/UserStore/Authentication/Interfaces";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -97,5 +97,5 @@ export default function Messages() {
     };
   }, [socket, chat, user, setOnline]);
 
-  return <Toaster richColors />;
+  return <></>;
 }

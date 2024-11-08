@@ -16,6 +16,7 @@ import Stream from "@/Pages/User/Stream";
 import LiveVideos from "@/Pages/User/LiveVideos";
 import LivePage from "@/Pages/User/LivePage";
 import Messages from "@/Assets/Components/Messages";
+import NotFoundPage from "./404";
 
 export default function UserRoutes() {
   return (
@@ -27,33 +28,30 @@ export default function UserRoutes() {
       <Routes>
         <Route path="/login" Component={Login} />
         <Route path="/register" Component={Register} />
+
+        <Route path="/" Component={Home} />
+        <Route path="/profile" Component={Profile} />
+        <Route path="/profile/:ProfileLink" Component={UserProfile} />
+        <Route path="/post/:id" Component={Post} />
+        <Route path="/upload/post" Component={PostUpload} />
+        <Route
+          path="/verify-account/:VerificationLink/:UserId"
+          Component={VerifyAccount}
+        />
+
+        <Route path="/videos/:VideoLink" Component={VideoPlayer} />
+        <Route path="/videos" Component={Videos} />
+        <Route path="/upload/video" Component={VideoUpload} />
+
+        <Route path="/shorts" Component={Shorts} />
+        <Route path="/shorts/:id" Component={Shorts} />
+
+        <Route path="/stream" Component={Stream} />
+        <Route path="/live" Component={LiveVideos} />
+        <Route path="/live/:key" Component={LivePage} />
+
+        <Route path="*" Component={NotFoundPage} />
       </Routes>
-      {/* <ProtectedRoute> */}
-      <>
-        <Routes>
-          <Route path="/" Component={Home} />
-          <Route path="/profile" Component={Profile} />
-          <Route path="/profile/:ProfileLink" Component={UserProfile} />
-          <Route path="/post/:id" Component={Post} />
-          <Route path="/upload/post" Component={PostUpload} />
-          <Route
-            path="/verify-account/:VerificationLink/:UserId"
-            Component={VerifyAccount}
-          />
-
-          <Route path="/videos/:VideoLink" Component={VideoPlayer} />
-          <Route path="/videos" Component={Videos} />
-          <Route path="/upload/video" Component={VideoUpload} />
-
-          <Route path="/shorts" Component={Shorts} />
-          <Route path="/shorts/:id" Component={Shorts} />
-
-          <Route path="/stream" Component={Stream} />
-          <Route path="/live" Component={LiveVideos} />
-          <Route path="/live/:key" Component={LivePage} />
-        </Routes>
-      </>
-      {/* </ProtectedRoute> */}
     </>
   );
 }

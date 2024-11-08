@@ -50,7 +50,7 @@ export default function VideosComponent() {
           </div>
         </div>
       )}
-      <div className="w-full">
+      <div className="w-full bg-transparent">
         {Videos.length > 0 && (
           <div className="px-4 grid md:grid-cols-4 w-full grid-cols-1 gap-4">
             {Videos.map((video) => (

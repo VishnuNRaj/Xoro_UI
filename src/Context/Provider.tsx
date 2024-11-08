@@ -8,6 +8,7 @@ import SocketProvider from "./SocketProvider";
 import { Toaster } from "sonner";
 import ProgressProvider from "./ProgressContext";
 import OnlineProvider from "./OnlineProvider";
+import ErrorBoundary from "./ErrorBoundary";
 
 export default function Provider({ children }: { children: ReactNode }) {
   return (
@@ -17,29 +18,36 @@ export default function Provider({ children }: { children: ReactNode }) {
       }
       storageKey="theme"
     >
-      <Toaster duration={2000} richColors position="top-center" />
-      <StoreProvider store={store}>
-        <SocketProvider>
-          <ProgressProvider>
-            <div
-              style={{
-                scrollbarWidth: "none",
-                WebkitOverflowScrolling: "touch",
-              }}
-              className="bg-surface w-full h-screen p-0 m-0 overflow-y-scroll dark:bg-darken"
-            >
-              <Router>
-                <OnlineProvider>
-                  <Routes>
-                    <Route path="/*" element={<UserRoutes />} />
-                  </Routes>
-                  {children}
-                </OnlineProvider>
-              </Router>
-            </div>
-          </ProgressProvider>
-        </SocketProvider>
-      </StoreProvider>
+      <ErrorBoundary>
+        <Toaster
+          duration={2000}
+          richColors
+          position="top-center"
+          className="z-50"
+        />
+        <StoreProvider store={store}>
+          <SocketProvider>
+            <ProgressProvider>
+              <div
+                style={{
+                  scrollbarWidth: "none",
+                  WebkitOverflowScrolling: "touch",
+                }}
+                className="bg-surface w-full h-screen p-0 m-0 overflow-y-scroll dark:bg-darken"
+              >
+                <Router>
+                  <OnlineProvider>
+                    <Routes>
+                      <Route path="/*" element={<UserRoutes />} />
+                    </Routes>
+                    {children}
+                  </OnlineProvider>
+                </Router>
+              </div>
+            </ProgressProvider>
+          </SocketProvider>
+        </StoreProvider>
+      </ErrorBoundary>
     </ThemeProvider>
   );
 }

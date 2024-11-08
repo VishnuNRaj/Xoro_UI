@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import { Toaster } from "sonner";
 import {
   Dialog,
   DialogContent,
@@ -54,7 +53,6 @@ const AccountSettings: React.FC<SecureAccountProps> = memo(
 
           {type === "Edit" && <EditProfile />}
         </DialogContent>
-        <Toaster richColors position="top-right" />
       </Dialog>
     );
   }

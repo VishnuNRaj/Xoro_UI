@@ -1,5 +1,4 @@
 import { useState, useCallback, useMemo } from "react";
-import { Toaster } from "sonner";
 import ShortsPlayer from "./ShortsPlayer";
 import useShortsData from "@/Hooks/User/Shorts/useShortsData";
 import ShortsUpload from "./ShortsUpload";
@@ -28,7 +27,6 @@ export default function ShortsComponent() {
 
   return (
     <div className="relative min-h-screen bg-gray-100 dark:bg-gray-900">
-      <Toaster richColors closeButton position="top-right" />
       {open && <ShortsUpload open={open} setOpen={setOpen} />}
 
       <div className="fixed right-5 top-20 z-10">

@@ -66,7 +66,7 @@ export default function ProfileComponent() {
               </DialogTrigger>
               <DialogContent className="sm:max-w-md bg-blue-light dark:bg-background dark:text-white">
                 <DialogHeader>
-                  <DialogTitle>Share this post</DialogTitle>
+                  <DialogTitle>Share this profile</DialogTitle>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="flex items-center space-x-2">

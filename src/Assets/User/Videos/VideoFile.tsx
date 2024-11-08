@@ -13,7 +13,7 @@ export default function VideoFile({ video }: Props) {
   return (
     <div
       key={video.VideoLink}
-      className="flex dark:bg-background bg-blue-light dark:text-white border border-border flex-col rounded-md w-full h-full"
+      className="flex dark:bg-background animate-slideInFromLeft bg-blue-light dark:text-white border border-border flex-col rounded-md w-full h-full"
       onClick={() => navigate(`/videos/${video.VideoLink}`)}
     >
       <video className="w-full" src={video.Video} ref={videoRef} hidden></video>

@@ -24,7 +24,7 @@ export default function LoginComponent() {
   } = useLogin();
 
   return (
-    <div className="min-h-screen px-1 bg-gray-200 dark:bg-transparent relative flex items-center flex-col font-semibold justify-center">
+    <div className="min-h-screen px-1 dark:bg-transparent relative flex items-center flex-col font-semibold justify-center">
       {loading && <Preloader />}
       <Card className="w-full bg-blue-light dark:bg-background dark:bg-opacity-70  animate-slideInFromLeft max-w-md">
         <CardHeader className="space-y-3">
