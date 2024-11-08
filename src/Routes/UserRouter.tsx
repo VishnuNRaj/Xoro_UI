@@ -46,7 +46,7 @@ export default function UserRoutes() {
           <Route path="/upload/video" Component={VideoUpload} />
 
           <Route path="/shorts" Component={Shorts} />
-          <Route path="/shorts/:VideoLink" Component={Shorts} />
+          <Route path="/shorts/:id" Component={Shorts} />
 
           <Route path="/stream" Component={Stream} />
           <Route path="/live" Component={LiveVideos} />

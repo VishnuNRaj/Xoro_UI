@@ -1,95 +1,80 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, memo, useMemo } from "react";
 import videojs from "video.js";
 import Player from "video.js/dist/types/player";
 import "video.js/dist/video-js.css";
-// import LikeDislikeVideo from './LikeDislikeVideo';
 import config from "@/Configs/config";
-// import useWindowDimensions from "@/Hooks/useWindowDimesions";
-// import { useEssentials } from "@/Hooks/useEssentials";
 import useShortsPlayer from "@/Hooks/User/Shorts/useShortsPlayer";
 import { Shorts } from "@/Store/UserStore/Shorts-Management/interfaces";
 
 interface ShortsPlayerProps {
-  video: Shorts | null;
+  videoCache: Record<string, Shorts>;
   shorts: string[];
   id: string | undefined;
   getMoreShorts: (token: string) => void;
 }
 
-export default function ShortsPlayer({
-  video,
+function ShortsPlayer({
+  videoCache,
   shorts,
   id,
   getMoreShorts,
 }: ShortsPlayerProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const playerRef = useRef<Player | null>(null);
-//   const { navigate } = useEssentials();
-  // const { width } = useWindowDimensions();
+  const video = useMemo(() => (id ? videoCache[id] : null), [id, videoCache]);
+
   const {
-    // handleKeyDown,
     handleTouchStart,
     handleTouchMove,
-    // dialog,
-    // setDialog,
     subs,
     subscribe,
     handleSubscribe,
     handleUnsubscribe,
-  } = useShortsPlayer({ video, shorts, id, getMoreShorts });
+  } = useShortsPlayer({ videoCache, shorts, id, getMoreShorts });
 
   const initializePlayer = useCallback(() => {
-    if (videoRef.current && video) {
-      if (playerRef.current) {
-        playerRef.current.src({
-          src: `${config.SERVER}/shorts/${video.Key}/index.m3u8`,
-          type: "application/x-mpegURL",
-        });
-      } else {
-        const player = videojs(videoRef.current, {
-          controls: true,
-          autoplay: true,
-          fluid: true,
-          liveui: true,
-          loop: true,
-          preload: "auto",
-          aspectRatio: "9:16",
-          controlBar: {
-            playToggle: false,
-            volumePanel: false,
-            currentTimeDisplay: false,
-            timeDivider: true,
-            durationDisplay: true,
-            progressControl: true,
-            liveDisplay: false,
-            seekToLive: false,
-            remainingTimeDisplay: false,
-            customControlSpacer: true,
-            playbackRateMenuButton: true,
-            chaptersButton: false,
-            descriptionsButton: false,
-            subsCapsButton: true,
-            audioTrackButton: false,
-            pictureInPictureToggle: false,
-            fullscreenToggle: false,
-          },
-        });
-        playerRef.current = player;
-        player.src({
-          src: `${config.SERVER}/shorts/${video.Key}/index.m3u8`,
-          type: "application/x-mpegURL",
-        });
-      }
+    if (!videoRef.current || !video) return;
+
+    if (!playerRef.current) {
+      const player = videojs(videoRef.current, {
+        controls: true,
+        autoplay: true,
+        fluid: true,
+        liveui: true,
+        loop: true,
+        preload: "auto",
+        aspectRatio: "9:16",
+        controlBar: {
+          playToggle: false,
+          volumePanel: false,
+          currentTimeDisplay: false,
+          timeDivider: true,
+          durationDisplay: true,
+          progressControl: true,
+          liveDisplay: false,
+          seekToLive: false,
+          remainingTimeDisplay: false,
+          customControlSpacer: true,
+          playbackRateMenuButton: true,
+          chaptersButton: false,
+          descriptionsButton: false,
+          subsCapsButton: true,
+          audioTrackButton: false,
+          pictureInPictureToggle: false,
+          fullscreenToggle: false,
+        },
+      });
+      playerRef.current = player;
     }
-  }, [video]);
+    playerRef.current.src({
+      src: `${config.SERVER}/shorts/${video.Key}/index.m3u8`,
+      type: "application/x-mpegURL",
+    });
+  }, [video, playerRef]);
 
   useEffect(() => {
     initializePlayer();
-    return () => {
-      if (playerRef.current) {
-        playerRef.current.dispose();
-      }
-    };
+    // return () => playerRef.current?.dispose();
   }, [initializePlayer]);
 
   if (!video) return null;
@@ -100,7 +85,6 @@ export default function ShortsPlayer({
         <video
           ref={videoRef}
           className="video-js vjs-default-skin"
-        //   onKeyUpCapture={handleKeyDown}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
         />
@@ -136,13 +120,8 @@ export default function ShortsPlayer({
           {subscribe ? "Unsubscribe" : "Subscribe"}
         </button>
       </div>
-      {/* <LikeDislikeVideo
-        post={video}
-        dialog={dialog}
-        setDialog={setDialog}
-        comment={video.Comments.length}
-        width={width}
-      /> */}
     </div>
   );
 }
+
+export default memo(ShortsPlayer);
