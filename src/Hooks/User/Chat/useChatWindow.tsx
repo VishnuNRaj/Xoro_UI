@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getCookie } from "@/Functions/Cookies";
 import { useEssentials } from "@/Hooks/useEssentials";
-import { useOnline } from "@/Hooks/useWindowDimesions";
+import useOnline from "@/Hooks/useOnline";
 import { resetState } from "@/Store/UserStore/Authentication/AuthSlice";
 import { User } from "@/Store/UserStore/Authentication/Interfaces";
 import {
