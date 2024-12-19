@@ -58,7 +58,9 @@ export default function useRegister() {
       ConfirmPassword: Yup.string()
         .oneOf([Yup.ref("Password")], "Passwords must match")
         .required("Confirm Password is required"),
-      Phone: Yup.number().required("Phone number is required").lessThan(11),
+      Phone: Yup.string()
+        .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
+        .required("Phone number is required"),
     }),
     onSubmit: (values, { resetForm }) => {
       const { Name, Email, Password, Phone } = values;

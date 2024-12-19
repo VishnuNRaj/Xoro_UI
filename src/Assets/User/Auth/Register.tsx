@@ -81,7 +81,7 @@ export default function RegisterComponent() {
                                 Phone
                             </Label>
                             <div className="relative">
-                                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-200" />
+                                <Phone className={`absolute left-3 ${formik.touched.Phone && formik.errors.Phone ? "top-1/3" : "top-1/2"} transform -translate-y-1/2 text-gray-500 dark:text-gray-200`} />
                                 <Input
                                     id="phone"
                                     name="Phone"
